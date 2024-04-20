@@ -5,6 +5,8 @@
 
 trigger:
 - main
+pr:
+- main
 
 variables:
   solution: 'src/ContainerApp.sln'
@@ -24,13 +26,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-# - task: SonarCloudPrepare@1
-#   inputs:
-#     SonarCloud: 'weatherapp-toodosonartoken'
-#     organization: 'vvhit-devops'
-#     scannerMode: 'MSBuild'
-#     projectKey: 'VVHIT-DevOps_weather-todo-app'
-#     projectName: 'weather-todo-app'
+
 
 - task: VSBuild@1
   inputs:
@@ -39,18 +35,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# - task: SonarCloudAnalyze@1
-#   inputs:
-#     jdkversion: 'JAVA_HOME_17_X64'
+
 
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-# - task: SonarCloudPublish@1
-#   inputs:
-#     pollingTimeoutSec: '300'
 
 - task: PublishBuildArtifacts@1
   inputs:
